@@ -1,0 +1,20 @@
+@import "./fonts.css";
+
+@import "tailwindcss";
+
+@theme {
+
+    --font-mabry: "Mabry Pro", "sans-serif";
+    --color-base-dark: #282525;
+    --color-base-yellow: #FDC300;
+    --color-base-grey: rgba(40, 37, 37, 0.4);
+
+    --text-big: 2.4rem;
+    --text-medium: 1.6rem;
+    --text-small: 1.4rem;
+    --text-ex-small: 1.2rem;
+}
+
+html {
+    font-size: 10px;
+}
