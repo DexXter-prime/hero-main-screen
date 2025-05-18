@@ -1,25 +1,46 @@
 <script setup lang="ts">
-  let heroData = reactive([]);
+  import TheHeader from "~/components/page/TheHeader.vue";
+  import ThePromo from "~/components/page/ThePromo.vue";
+  import HeroScreen from "~/components/page/HeroScreen.vue";
+  import type {IFiltersFetch, IHeroFetch} from "~/types/types";
+  import FilterSection from "~/components/page/FilterSection.vue";
+
+  const heroData = reactive<IHeroFetch>({} as IHeroFetch);
+  const filtersData = reactive<IFiltersFetch>({} as IFiltersFetch);
 
   async function fetchHeroData() {
     try {
-      heroData = await $fetch('/api/hero-data');
+      const { baseData, images } = await $fetch<IHeroFetch>('/api/hero-data');
+      heroData.baseData = baseData;
+      heroData.images = images
     } catch (e) {
       console.log(e)
     }
   }
 
-  onMounted(async () => {
+  async function fetchFilters() {
+    try {
+      const { filters } = await $fetch<IFiltersFetch>('/api/filters-data');
+      filtersData.filters = filters;
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  onMounted( async () => {
     await fetchHeroData();
-    console.log(heroData)
-  })
+    await fetchFilters();
+  });
+
+  const heroDataExists = computed(() => Object.keys(heroData).length);
+  const filtersExits = computed(() => Object.keys(filtersData).length)
+
 </script>
 
 <template>
-  <div>
-    <p class="font-mabry text-big text-base-yellow underline">
-        На русском
-    </p>
-    <i-logo filled/>
-  </div>
+  <TheHeader class="fixed flex-col w-screen z-1000"/>
+  <main class="w-screen">
+    <HeroScreen v-if="heroDataExists" :base-data="heroData.baseData"  :images="heroData.images" />
+    <FilterSection v-if="filtersExits"  :filters="filtersData.filters"/>
+  </main>
 </template>

@@ -1,8 +1,8 @@
 export default defineEventHandler(async () => {
     return {
-        baseImage: {
+        baseData: {
             id: Math.floor(Math.random() * 10000),
-            url: '/images/image-7.png',
+            urlBase: '/images/image-7.png',
         },
         images: [
             {
