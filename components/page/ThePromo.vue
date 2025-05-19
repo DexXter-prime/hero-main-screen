@@ -4,6 +4,9 @@
     promoFlats: 'Квартиры со скидкой 30%'
   };
 
+  /**
+   * Эмит события для скрытия промо
+   */
   const emit = defineEmits(['hide'])
 </script>
 

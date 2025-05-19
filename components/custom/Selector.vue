@@ -8,14 +8,24 @@
   import {Button} from "~/components/ui/button";
   import type {IOption} from "~/types/types";
 
-
-  const props = defineProps<{
+  /**
+   * options: набор опций для фильтра
+   * defaultValue: дефолтное значение для фильтра
+   * modelValue: набор выбранных фильтров
+   * subtitle: доп. название для каждого фильтра
+   */
+  interface IProps {
     options: IOption[];
-    defaultValue: IOption,
+    defaultValue: IOption;
     modelValue: string[];
     subtitle: string;
-  }>();
+  }
 
+  const props = defineProps<IProps>();
+
+  /**
+   * Отдаем на верх набор выбранных опций для каждого фильтра
+   */
   const emit = defineEmits(['update:modelValue']);
 
   const selectedItems = ref<string[]>(props.modelValue || [props.defaultValue.value]);
@@ -24,7 +34,6 @@
     emit('update:modelValue', value);
   });
 
-  const finalOptions = computed(() => [props.defaultValue, ...props.options]);
 
   function setChecked(checked: boolean, option: {value: string, label: string}) {
     if (option.value === 'any') {
@@ -38,6 +47,8 @@
       selectedItems.value = selectedItems.value.filter(item => item !== option.value)
     }
   }
+
+  const finalOptions = computed(() => [props.defaultValue, ...props.options]);
 
   const titleValues = computed(() => props.modelValue.reduce((acc, curr) => {
     const filterOption = finalOptions.value.find(option => curr === option.value) || '';

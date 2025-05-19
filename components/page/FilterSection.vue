@@ -3,15 +3,17 @@ import { ref } from 'vue'
 import Selector from "~/components/custom/Selector.vue";
 import type {IFiltersFetch} from "~/types/types";
 
-interface IProps extends IFiltersFetch {}
-
 const STATIC_DATA = {
   flats: '126 квартир',
 }
+interface IProps extends IFiltersFetch {}
 
 const props = defineProps<IProps>();
 
 
+/**
+ * Реактивный объект, хранящий набор выбранных опций для каждого из фильтров
+ */
 const selectedValues = ref<Record<string, string[]>>(props.filters.reduce((acc, curr) => {
   acc[curr.subtitle] = [curr.defaultValue.value];
   return acc;

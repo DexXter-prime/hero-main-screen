@@ -1,6 +1,5 @@
 <script setup lang="ts">
   import TheHeader from "~/components/page/TheHeader.vue";
-  import ThePromo from "~/components/page/ThePromo.vue";
   import HeroScreen from "~/components/page/HeroScreen.vue";
   import type {IFiltersFetch, IHeroFetch} from "~/types/types";
   import FilterSection from "~/components/page/FilterSection.vue";

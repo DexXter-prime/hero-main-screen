@@ -4,8 +4,15 @@ import type {IHeroFetch } from "~/types/types";
   interface IProps extends IHeroFetch {}
 
   const { $gsap } = useNuxtApp();
+
+  /**
+   * Описание пропсов в IHeroFetch
+   */
   const props = defineProps<IProps>();
 
+  /**
+   * Общий набор всех фотографий, которые будут анимироваться, где крайним является изначальное изображение
+   */
   const animatedImages = computed(() => [...props.images, { id: props.baseData.id, image: props.baseData.urlBase }]);
 
   onMounted(() => {
